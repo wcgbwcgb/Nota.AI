@@ -1,0 +1,19 @@
+[project]
+name = "nota-ai"
+version = "0.1.0"
+description = "An AI-powered lecture assistant that transforms academic audio into structured Markdown notes for students."
+authors = [
+    {name = "Muyang",email = "977155494@qq.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "openai (>=2.16.0,<3.0.0)",
+    "openai-whisper (>=20250625,<20250626)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

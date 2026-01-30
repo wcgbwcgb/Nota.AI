@@ -10,7 +10,3 @@ class Transcriber(ABC):
     @abstractmethod
     def transcribe(self):
         pass
-
-    @abstractmethod
-    def set_model(self):
-        pass

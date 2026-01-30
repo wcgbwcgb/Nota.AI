@@ -1,10 +1,21 @@
 from .base import Generator
 from openai import OpenAI
 
+"""
+TODO
+1. Implement 'Adaptive Prompting' using f-strings to dynamically inject [subject] and [objective].
+2. Implement asynchronous streaming of structured Markdown notes to support real-time lecture synthesis.
+3. the markdown note should be generated into a file or html page to display the outcome.
+"""
+
 class LLMGenerator(Generator):
+    """
+    "Transforms unstructured lecture transcripts into highly structured, formatted Markdown notes using Large Language Models
+    """
+
     def __init__(self):
         super().__init__()
-        self.model_name = None
+        self.model_name = None  # name of llm
         self.system_instruction = """
             You are a polymath academic assistant. Your goal is to transform a lecture transcript into structured notes.
             
@@ -17,12 +28,18 @@ class LLMGenerator(Generator):
             ## 2. Core Taxonomy
             ## 3. Formalisms / Key Quotes
             ## 4. Review & Action Items
-            """
+            """  # instruction prompt
 
-    '''
-    return a client
-    '''
+
     def set_client(self, provider: str, api_key):
+        """
+        Configure the API client for a specific LLM provider
+        
+        Args:
+            provider: the name of the LLM provider
+            api_key: the secret API key
+
+        """
         configs = {
             "openai": {
                 "api_key": api_key,
@@ -44,8 +61,19 @@ class LLMGenerator(Generator):
             base_url=config["base_url"]
         )
     
+
     # override
     def generate(self, raw_text, model="deepseek-chat"):
+        """
+        Synthesize structured Markdown notes from transcript text
+        
+        Args:
+            raw_text: The source transcript text obtained from audio
+            model: The specific model identifier
+
+        Return:
+            Structured note string in markdown format
+        """
         if not self.client:
             raise RuntimeError("Please call set_client() before generate().")
         if self.model_name == "openai":
